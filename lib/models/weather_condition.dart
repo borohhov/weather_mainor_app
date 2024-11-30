@@ -1,5 +1,7 @@
 enum WeatherCondition {
   sunny,          // Clear sunny weather
+  still,          // Clear weather at night
+  sunWithClouds,  // clouds cover 25% or more
   cloudy,         // Overcast or cloudy weather
   rainy,          // Rainy weather
   snowy,          // Snowfall

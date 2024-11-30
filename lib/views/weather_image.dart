@@ -11,6 +11,10 @@ class WeatherEmojiWidget extends StatelessWidget {
     switch (condition) {
       case WeatherCondition.sunny:
         return '☀️';
+      case WeatherCondition.still:
+        return '✨';
+      case WeatherCondition.sunWithClouds:
+        return '⛅';
       case WeatherCondition.cloudy:
         return '☁️';
       case WeatherCondition.rainy:
