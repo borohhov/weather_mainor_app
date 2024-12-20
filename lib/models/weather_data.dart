@@ -12,4 +12,9 @@ class WeatherData {
   WeatherData(this.location, this.temperatureNow, this.feelsLikeTemperature,
       this.weatherCondition,
       {this.recommendation = "Wear your hat!"});
+
+  @override
+  String toString() {
+    return 'Location: $location, temperature: $temperatureNow, feels like: $feelsLikeTemperature, conditions: ${weatherCondition.toString()}';
+  }
 }

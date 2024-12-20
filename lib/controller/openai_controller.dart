@@ -13,7 +13,7 @@ Future<String> getWeatherRecommendation(String weatherData) async {
     "messages": [
       {
         "role": "system",
-        "content": "You are a helpful assistant providing weather-based clothing recommendations. Please be brief, no more than 1 sentence."
+        "content": "You are a helpful assistant providing weather-based clothing recommendations. Please be brief, no more than 1 sentence. Just give a list, e.g. Wear a warm winter coat and gloves. Take an umbrella."
       },
       {
         "role": "user",

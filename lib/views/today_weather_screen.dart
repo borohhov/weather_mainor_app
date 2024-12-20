@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:weather_mainor_app/controller/openai_controller.dart';
 import 'package:weather_mainor_app/models/openmeteo_response.dart';
 import 'package:weather_mainor_app/models/weather_condition.dart';
 import 'package:weather_mainor_app/models/weather_data.dart';
@@ -52,17 +54,30 @@ class _TodayWeatherScreenState extends State<TodayWeatherScreen> {
                         ),
                         WeatherEmojiWidget(
                             condition: weatherData.weatherCondition),
+                        Container(
+                          padding: EdgeInsets.all(40),
+                        ),
+                        FutureBuilder<String>(
+                          future: getWeatherRecommendation(weatherData.toString()),
+                          builder: (context, snapshot) {
+                            if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                              return Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  snapshot.data ?? "",
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              );
+                            }
+                            return Container();
+
+                          }
+                        )
                       ],);
                     }
                     return const Text('Error!');
                   }),
-              Container(
-                padding: EdgeInsets.all(40),
-              ),
-              Text(
-                "Recommendation: dummy",
-                style: TextStyle(fontSize: 20),
-              )
+
             ],
           ),
         ),
