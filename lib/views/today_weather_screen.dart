@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_mainor_app/controller/openai_controller.dart';
+import 'package:weather_mainor_app/controller/persistence/weather_data_provider.dart';
 import 'package:weather_mainor_app/models/openmeteo_response.dart';
-import 'package:weather_mainor_app/models/weather_condition.dart';
 import 'package:weather_mainor_app/models/weather_data.dart';
+import 'package:weather_mainor_app/views/history_screen.dart';
 import 'package:weather_mainor_app/views/weather_image.dart';
 
 import '../controller/openmeteo_api_call.dart';
@@ -29,12 +31,24 @@ class _TodayWeatherScreenState extends State<TodayWeatherScreen> {
     setState(() {
       _weatherFuture = fetchOpenMeteoWeather();
     });
-    await _weatherFuture; // Ensure the future is awaited
+    var response = await _weatherFuture; // Ensure the future is awaited
+    final weatherData = WeatherData(
+      'Tallinn',
+      response.current.temperature2m,
+      response.current.apparentTemperature,
+      determineWeatherCondition(response),
+    );
+    Provider.of<WeatherDataProvider>(context, listen: false).updateData(weatherData);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => HistoryScreen()),
+        );
+      }, child: const Icon(Icons.history),),
       body: RefreshIndicator(
         onRefresh: onRefresh,
         child: FutureBuilder<OpenMeteoResponse>(
@@ -55,7 +69,7 @@ class _TodayWeatherScreenState extends State<TodayWeatherScreen> {
               );
 
               return ListView(
-                padding: EdgeInsets.only(top: 50),
+                padding: EdgeInsets.only(top: 100),
                 children: [
                   Center(
                     child: Column(
