@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 Future<String> getWeatherRecommendation(String weatherData) async {
-
-
   final apiKey = dotenv.env['OPENAI_API_KEY'];
   final url = Uri.parse('https://api.openai.com/v1/chat/completions');
 
