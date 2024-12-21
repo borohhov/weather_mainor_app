@@ -15,20 +15,21 @@ class HistoryScreen extends StatelessWidget {
           child: Column(
             children: Provider.of<WeatherDataProvider>(context)
                 .data
-                .map((record) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                            "${record.location}: ${record.temperatureNow}, feels like ${record.feelsLikeTemperature}, ${record.weatherCondition}",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                      Text(record.savedTime),
-                      Container(height: 1, color: const Color(0x330066FF))
-                    ],
-                  ),
-                ))
+                .map((record) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          "${record.location}: ${record.temperatureNow}, feels like ${record.feelsLikeTemperature}, ${record.weatherCondition}",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(record.savedTime),
+                        Container(
+                          height: 1,
+                          color: const Color(0x330066FF),
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                        )
+                      ],
+                    ))
                 .toList(),
           ),
         ),
