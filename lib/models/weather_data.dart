@@ -9,8 +9,7 @@ class WeatherData {
   //List hourlyWeather; TODO we wanted to do this too
   String recommendation = "";
 
-  WeatherData(this.location, this.temperatureNow, this.feelsLikeTemperature,
-      this.weatherCondition,
+  WeatherData(this.location, this.temperatureNow, this.feelsLikeTemperature, this.weatherCondition,
       {this.recommendation = "Wear your hat!"});
 
   @override

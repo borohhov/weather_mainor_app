@@ -12,26 +12,35 @@ class HistoryScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16),
-          child: Column(
-            children: Provider.of<WeatherDataProvider>(context)
-                .data
-                .map((record) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          "${record.location}: ${record.temperatureNow}, feels like ${record.feelsLikeTemperature}, ${record.weatherCondition}",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Text(record.savedTime),
-                        Container(
-                          height: 1,
-                          color: const Color(0x330066FF),
-                          margin: const EdgeInsets.symmetric(vertical: 8),
-                        )
-                      ],
-                    ))
-                .toList(),
-          ),
+          child: FutureBuilder(
+              future: Provider.of<WeatherDataProvider>(context).data,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: Text("Loading"),
+                  );
+                }
+
+                return Column(
+                  children: snapshot.data!
+                      .map((record) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                "${record.location}: ${record.temperatureNow}, feels like ${record.feelsLikeTemperature}, ${record.weatherCondition}",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              Text(record.savedTime),
+                              Container(
+                                height: 1,
+                                color: const Color(0x330066FF),
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                              )
+                            ],
+                          ))
+                      .toList(),
+                );
+              }),
         ),
       ),
     );
