@@ -6,7 +6,7 @@ import 'package:weather_mainor_app/models/weather_data.dart';
 import 'package:weather_mainor_app/models/weather_data_log.dart';
 
 class WeatherDataProvider extends ChangeNotifier {
-  Persistence db = SqlLite();
+  Persistence db = SqlLiteController();
 
   Future<List<WeatherDataLog>> get data async {
     await db.init();

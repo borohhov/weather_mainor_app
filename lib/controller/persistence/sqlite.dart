@@ -1,21 +1,16 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../../models/weather_data_log.dart';
-import 'persistence.dart';        // Your abstract interface
+import 'persistence.dart';
 
-class SqlLite implements Persistence {
-  // Singleton boilerplate
-  static final SqlLite _instance = SqlLite._internal();
-  factory SqlLite() => _instance;
-  SqlLite._internal();
+class SqlLiteController implements Persistence {
+  static final SqlLiteController _instance = SqlLiteController._internal();
+  factory SqlLiteController() => _instance;
+  SqlLiteController._internal();
 
   Database? _db;
-
-  /// Initialize the database once. Avoid exposing the
-  /// SQLite details in multiple places.
   @override
   Future<void> init() async {
-    // If _db is already initialized, skip
     if (_db != null) return;
 
     final dbPath = await getDatabasesPath();
@@ -39,7 +34,6 @@ class SqlLite implements Persistence {
     );
   }
 
-  /// Persists a [WeatherDataLog] entry into the database.
   @override
   Future<void> saveData(WeatherDataLog data) async {
     if (_db == null) {
@@ -53,14 +47,12 @@ class SqlLite implements Persistence {
         'temperatureNow': data.temperatureNow,
         'feelsLikeTemperature': data.feelsLikeTemperature,
         'weatherCondition': data.weatherCondition,
-        'savedTime': data.savedTime, // e.g. '2025-01-16 14:23'
+        'savedTime': data.savedTime,
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  /// Retrieves all rows from the WeatherDataLog table
-  /// and maps them to [WeatherDataLog] instances.
   @override
   Future<List<WeatherDataLog>> getAllData() async {
     if (_db == null) {
@@ -69,7 +61,7 @@ class SqlLite implements Persistence {
 
     final List<Map<String, dynamic>> result =
     await _db!.query('WeatherDataLog');
-
+// select * from WeatherDataLog
     return List.generate(result.length, (i) {
       final row = result[i];
       final dataLog = WeatherDataLog(
