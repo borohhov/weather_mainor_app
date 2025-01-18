@@ -20,6 +20,11 @@ class HistoryScreen extends StatelessWidget {
                     child: Text("Loading"),
                   );
                 }
+                if( snapshot.connectionState == ConnectionState.done && !snapshot.hasData) {
+                  return Center(
+                    child: Text("No data"),
+                  );
+                }
 
                 return Column(
                   children: snapshot.data!

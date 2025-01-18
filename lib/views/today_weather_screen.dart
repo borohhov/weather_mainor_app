@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_mainor_app/controller/openai_controller.dart';
@@ -7,8 +8,11 @@ import 'package:weather_mainor_app/models/weather_data.dart';
 import 'package:weather_mainor_app/views/history_screen.dart';
 import 'package:weather_mainor_app/views/weather_image.dart';
 
+import '../controller/auth/auth_provider.dart';
 import '../controller/openmeteo_api_call.dart';
+import '../controller/utils.dart';
 import '../controller/weather_condition_controller.dart';
+import '../models/weather_data_log.dart';
 
 class TodayWeatherScreen extends StatefulWidget {
   const TodayWeatherScreen({super.key});
@@ -38,7 +42,13 @@ class _TodayWeatherScreenState extends State<TodayWeatherScreen> {
       response.current.apparentTemperature,
       determineWeatherCondition(response),
     );
-    Provider.of<WeatherDataProvider>(context, listen: false).updateData(weatherData);
+    String? uid = Provider.of<FirebaseAuthProvider>(context, listen: false).uid;
+    WeatherDataLog log = WeatherDataLog(weatherData.location, "${weatherData.temperatureNow.toString()}°C",
+        "${weatherData.feelsLikeTemperature.toString()}°C", getEmojiForCondition(weatherData.weatherCondition), uid
+    );
+
+
+    Provider.of<WeatherDataProvider>(context, listen: false).updateData(log);
   }
 
   @override

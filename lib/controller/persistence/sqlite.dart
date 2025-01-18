@@ -48,6 +48,7 @@ class SqlLiteController implements Persistence {
         'feelsLikeTemperature': data.feelsLikeTemperature,
         'weatherCondition': data.weatherCondition,
         'savedTime': data.savedTime,
+        'author': data.author
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -69,6 +70,7 @@ class SqlLiteController implements Persistence {
         row['temperatureNow'],
         row['feelsLikeTemperature'],
         row['weatherCondition'],
+        row['author']
       );
       dataLog.savedTime = row['savedTime'];
       return dataLog;

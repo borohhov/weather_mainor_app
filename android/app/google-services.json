@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "946988847170",
+    "project_id": "mainor-2025-weather-app",
+    "storage_bucket": "mainor-2025-weather-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946988847170:android:a461ccfe785878afad1ddb",
+        "android_client_info": {
+          "package_name": "com.mainor.weather.weather_mainor_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVK_UiXy1qBcV1eBiULQbkZcSsM8CFKt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
